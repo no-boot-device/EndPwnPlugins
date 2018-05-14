@@ -1,15 +1,15 @@
 exportsexports = {
     meta: {
-        author: "Cynosphere",
+        author: "Cynosphere, janeptrv",
         name: "osu! Typing",
         desc: "Adds typing sounds from osu!."
     },
     start: function(){
         var sounds = [];
         for (var i = 1; i < 4; i++) {
-            sounds.push(new Audio(`https://github.com/statefram/sounds/blob/master/osu_typing_click${i}.wav?raw=true`));
+            sounds.push(new Audio(`https://github.com/janeptrv/sounds/blob/master/osu_typing_click${i}.wav?raw=true`));
         }
-        const backspace = new Audio("https://github.com/statefram/sounds/blob/master/osu_typing_erase.wav?raw=true");
+        const backspace = new Audio("https://github.com/janeptrv/sounds/blob/master/osu_typing_erase.wav?raw=true");
 
         var keys = {};
         function typingSound(ev) {
