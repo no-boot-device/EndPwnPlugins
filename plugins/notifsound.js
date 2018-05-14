@@ -1,7 +1,7 @@
-exports.meta = {
+exports.manifest = {
     author: "dr1ft",
     name: "Notification Sound Replacer",
-    desc: "Replaces notification sound with an unused sound thats nicer."
+    description: "Replaces notification sound with an unused sound thats nicer."
 }
 exports.start = function(){
     var s = wc.findFunc('playSound')[1].exports;

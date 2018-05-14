@@ -1,7 +1,7 @@
-exports.meta = {
+exports.manifest = {
     author: "Cynosphere, Jiiks",
     name: "Double Click Edit",
-    desc: "Double click messages to edit them."
+    description: "Double click messages to edit them."
 }
 exports.start = function(){
     document.addEventListener("dblclick", ev => {

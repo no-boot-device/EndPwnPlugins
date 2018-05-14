@@ -1,8 +1,8 @@
 exportsexports = {
-    meta: {
+    manifest: {
         author: "Cynosphere, janeptrv",
         name: "osu! Typing",
-        desc: "Adds typing sounds from osu!."
+        description: "Adds typing sounds from osu!."
     },
     start: function(){
         var sounds = [];

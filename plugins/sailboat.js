@@ -1,7 +1,7 @@
-exports.meta = {
-    author: "BlockBuilder57, Cynosphere",
+exports.manifest = {
+    author: "Adryd, BlockBuilder57, Cynosphere",
     name: "Sailboat",
-    desc: "Login as bot accounts."
+    description: "Login as bot accounts."
 }
 exports.replacements = {
 	'/i.default.Store.pauseEmittingChanges\\(\\),t.user.bot/':'false',

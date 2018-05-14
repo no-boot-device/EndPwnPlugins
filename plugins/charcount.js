@@ -16,10 +16,10 @@ function setupCharCount() {
 }
 
 exports = {
-    meta: {
+    manifest: {
         author: "Cynosphere",
         name: "Character Counter",
-        desc: "Counts characters in the chatbox."
+        description: "Counts characters in the chatbox."
     },
     start: function(){
         let charcount_mo = new MutationObserver(setupCharCount);

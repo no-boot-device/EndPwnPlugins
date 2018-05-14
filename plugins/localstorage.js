@@ -1,8 +1,8 @@
 exports = {
-    meta: {
-        author: "Cynosphere, Adryd",
+    manifest: {
+        author: "Cynosphere",
         name: "Restore Local Storage",
-        desc: "Restore window.localStorage."
+        description: "Restore window.localStorage."
     },
     replacements: {
         'try{delete window.localStorage}catch(e){}':''

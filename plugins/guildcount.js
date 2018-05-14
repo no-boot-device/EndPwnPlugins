@@ -39,10 +39,10 @@ function scCSS() {
     document.body.appendChild(css);
 }
 
-exports.meta = {
+exports.manifest = {
     author: "Cynosphere",
     name: "Guild Count",
-    desc: "Shows guild count under online count."
+    description: "Shows guild count under online count."
 }
 exports.start = () => {
     scCSS();

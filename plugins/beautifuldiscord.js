@@ -10,10 +10,10 @@ bdwatcher = null, bdtag = null, setupCSS = function (n) {
     }))
 };
 
-exports.meta = {
+exports.manifest = {
     author: "dr1ft",
     name: "BeautifulDiscord Port",
-    desc: "Allows CSS to be imported and updated on the fly."
+    description: "Allows CSS to be imported and updated on the fly."
 },
 exports.start = () => {
     if (fs.existsSync($api.data + 'style.css'))

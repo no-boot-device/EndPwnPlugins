@@ -3,10 +3,10 @@ IMGXIS made by YellowAfterlife. http://yellowafterlife.itch.io/imgxis (mirror: h
 Ported by Jane (maybejane/statefram) and Cynthia (BoxOfFlex/Cynosphere) to a private client mod.
 Re-ported by Cynthia to EndPwn.
 */
-exports.meta = {
+exports.manifest = {
   author: "Cynosphere, YellowAfterlife",
   name: "IMGXIS",
-  desc: "A better way to view images."
+  description: "A better way to view images."
 }
 exports.start = function(){
     var globalPanner;
