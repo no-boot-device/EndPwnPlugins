@@ -3,7 +3,7 @@ exports = {
 		author: "Adryd, BlockBuilder57, Cynosphere",
 		name: "Sailboat",
 		description: "Login as bot accounts.",
-		replacements = [
+		replacements: [
 			{signature:'/i.default.Store.pauseEmittingChanges\\(\\),t.user.bot/',payload:'false'},
 			{signature:'/.\\._reset\\(!0,1e3,"Disconnect requested by user"\\)/',payload:'console.log("delightfully devilish seymour")'},
 			{signature:'/\\.experiments;v={},t\\.forEach/',payload:'.experiments;if(t==undefined) return;v={},t.forEach'},
