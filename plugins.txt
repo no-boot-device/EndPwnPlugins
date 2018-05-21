@@ -1,0 +1,14 @@
+beautifuldiscord.js
+charcount.js
+dblclickedit.js
+fixmentions.js
+glsandbox.js
+guildcount.js
+imgxis.js
+localstorage.js
+notifsound.js
+osutyping.js
+sailboat.js
+settingsapi.js
+silenttyping.js
+spotifyspoof.js

@@ -1,36 +1,10 @@
-//Stolen from StackOverflow :^)
-let convertToText = function(obj) {
-    var string = [];
-
-    if (obj == undefined) {
-    	return String(obj);
-    } else if (typeof(obj) == "object" && (obj.join == undefined)) {
-        for (prop in obj) {
-        	if (obj.hasOwnProperty(prop))
-            string.push(prop + ": " + convertToText(obj[prop]));
-        };
-        return "{" + string.join(",") + "}";
-    } else if (typeof(obj) == "object" && !(obj.join == undefined)) {
-        for(prop in obj) {
-            string.push(convertToText(obj[prop]));
-        }
-        return "[" + string.join(",") + "]";
-    } else if (typeof(obj) == "function") {
-        string.push(obj.toString())
-    } else {
-        string.push(JSON.stringify(obj))
-    }
-
-    return string.join(",");
-}
-
 exports = {
     manifest: {
         author: "Cynosphere, BlockBuilder57",
         name: "Settings API",
         description: "Hijack the settings menu in any way you feel.",
         replacements: [
-            {signature:'/function z\\(\\){return\\[{(.+)}]}/',payload:'window.$settingsapi={sections:[{$1}]};function z(){return window.$settingsapi.sections;}'}
+            {signature:'/function (.)\\(\\){return\\[{(.+)}]}/',payload:'window.$settingsapi={sections:[{$2}]};function $1(){return window.$settingsapi.sections;}'}
         ]
     },
     start: function(){
