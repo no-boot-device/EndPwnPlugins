@@ -1,4 +1,4 @@
-exportsexports = {
+exports = {
     manifest: {
         author: "Cynosphere, janeptrv",
         name: "osu! Typing",
@@ -7,9 +7,9 @@ exportsexports = {
     start: function(){
         var sounds = [];
         for (var i = 1; i < 4; i++) {
-            sounds.push(new Audio(`https://github.com/janeptrv/sounds/blob/master/osu_typing_click${i}.wav?raw=true`));
+            sounds.push(new Audio(`https://raw.githubusercontent.com/janeptrv/sounds/master/osu_typing_click${i}.wav`));
         }
-        const backspace = new Audio("https://github.com/janeptrv/sounds/blob/master/osu_typing_erase.wav?raw=true");
+        const backspace = new Audio("https://raw.githubusercontent.com/janeptrv/sounds/master/osu_typing_erase.wav");
 
         var keys = {};
         function typingSound(ev) {

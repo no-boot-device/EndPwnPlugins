@@ -91,9 +91,7 @@ exports.start = function(){
 
     function onImageOpen(element) {
         let wrap = document.querySelector('div[class*="imageWrapper-"]');
-        const openOrig = document.querySelectorAll(
-          'div a[class^="downloadLink-"]'
-        )[0];
+        const openOrig = document.querySelectorAll('div a[class*="downloadLink-"]')[0];
         openOrig.style.display = "none";
         const origLink = openOrig.getAttribute("href");
         var menuColors = 10; // how many color buttons to show in the menu
@@ -142,11 +140,11 @@ exports.start = function(){
         function fixElem(elemToFix) {
           if (electron.process.platform == "win32" || electron.process.platform == "darwin") {
             menu.style.zIndex = 3003;
-            menu.style.top = "22px";
+            menu.style.top = $('[class*="typeWindows-"]').clientHeight+"px";
             menu.style.position = "absolute";
             menu.style.left = 0;
-            elemToFix.style.top = "22px";
-            elemToFix.style.height = "calc(100vh - 22px)";
+            elemToFix.style.top = $('[class*="typeWindows-"]').clientHeight+"px";
+            elemToFix.style.height = `calc(100vh - ${$('[class*="typeWindows-"]').clientHeight}px)`;
           } else {
             elemToFix.style.height = "100vh";
             elemToFix.style.top = 0;

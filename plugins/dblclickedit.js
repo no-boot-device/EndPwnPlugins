@@ -6,7 +6,7 @@ exports.manifest = {
 exports.start = function(){
     document.addEventListener("dblclick", ev => {
         let target = ev.target;
-        if(target.className.includes("markup")) {
+        if(target && target.className && target.className.includes("markup")) {
             let msg = target;
             let opt = msg.parentNode.querySelector(".btn-option");
             opt.click();

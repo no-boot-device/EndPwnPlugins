@@ -28,10 +28,10 @@ exports = {
     manifest: {
         author: "Cynosphere, BlockBuilder57",
         name: "Settings API",
-        description: "Hijack the settings menu in any way you feel."
-    },
-    replacements: {
-        '/function z\\(\\){return\\[{(.+)}]}/':'window.$settingsapi={sections:[{$1}]};function z(){return window.$settingsapi.sections;}',
+        description: "Hijack the settings menu in any way you feel.",
+        replacements: [
+            {signature:'/function z\\(\\){return\\[{(.+)}]}/',payload:'window.$settingsapi={sections:[{$1}]};function z(){return window.$settingsapi.sections;}'}
+        ]
     },
     start: function(){
         var buttons = $api.util.findFuncExports('button-', 'colorBlack');
@@ -50,17 +50,25 @@ exports = {
             ourSections: [],
             _callbacks: {},
             _panels: {},
-            addSection: function(name,label,callback,color){
+            addSection: function(name,label,color=null,callback){
                 let data = {};
 
                 data.section = name || `SAPI_${Math.floor(Math.random()*10000)}`;
                 data.label = label;
-                data.color = color || undefined;
+                data.color = color;
                 data.element = $api.util.findConstructor('FormSection', 'FormSection').FormSection;
 
                 $settingsapi.ourSections.push(data);
                 $settingsapi.sections.splice($settingsapi.sections.length-4,0,data);
                 $settingsapi._callbacks[name] = callback;
+            },
+            addDivider: function(){
+                $settingsapi.ourSections.push({section:"DIVIDER"});
+                $settingsapi.sections.splice($settingsapi.sections.length-4,0,{section:"DIVIDER"});
+            },
+            addHeader: function(label){
+                $settingsapi.ourSections.push({section:"HEADER",label:label});
+                $settingsapi.sections.splice($settingsapi.sections.length-4,0,{section:"HEADER",label:label});
             },
             exportSections: function(){
                 let out = "";
@@ -141,7 +149,7 @@ exports = {
                         )
                         .withText(text);
                 },
-                createInput: function(v) {
+                createInput: function(v, p) {
                     return createElement("input")
                         .withClass(
                             misc.inputDefault,
@@ -149,7 +157,8 @@ exports = {
                             misc.size16,
                             'epMargin'
                         )
-                        .modify(x => x.value = v)
+                        .modify(x => x.value = v ? v : "")
+                        .modify(x => x.placeholder = p ? p : "")
                 },
                 updateSwitch: function(s, w) {
                     if (s.checked) {
@@ -181,23 +190,52 @@ exports = {
                                 .modify(x => x.type = 'checkbox')
                                 .modify(x => x.checked = i)
                                 .modify(x => x.onchange = () => {
-                                    updateSwitch(s, w);
+                                    $settingsapi.elements.updateSwitch(s, w);
                                     c(s.checked);
                                 })
                         )
                     $settingsapi.elements.updateSwitch(s, w);
                     return w;
+                },
+                internal:{
+                    panels:panels,
+                    panels2:panels2,
+                    buttons:buttons,
+                    checkboxes:checkboxes,
+                    misc:misc,
+                    misc2:misc2,
+                    headers:headers
                 }
             }
         }
 
         //Example settings tab
-        /*$settingsapi.addSection("TESTING","test owo",function(pnl){
-            $settingsapi.elements.createH2("Hello World!").appendTo(pnl);
-        });*/
+        $settingsapi.addDivider();
+        $settingsapi.addHeader("Element Testing");
+        $settingsapi.addSection("TESTING","Element Test Page",null,function(pnl){
+            let em = $settingsapi.elements;
+            em.createH2("Hello World! Heading 2").appendTo(pnl);
+            em.createH5("Hello World! Heading 5").appendTo(pnl);
+            em.createButton("Button!").appendTo(pnl);
+            em.createWarnButton("Warning Button!").appendTo(pnl);
+            em.createDangerButton("Danger Button!").appendTo(pnl);
+            em.createInput("","Input Box!").appendTo(pnl);
+            em.createSwitch().appendTo(pnl);
 
-        $api.events.hook("USER_SETTINGS_MODAL_SET_SECTION", function(e){
-            if ($settingsapi._panels[e.section]) $settingsapi._panels[e.section].remove();
+            let v = em.createVerticalPanel().appendTo(pnl);
+            let h = em.createHorizontalPanel().appendTo(pnl);
+
+            em.createH2("Vertical Panel!").appendTo(v);
+            em.createButton("Beep Boop").appendTo(v);
+
+            em.createH2("Horizontal Panel!").appendTo(h);
+            em.createButton("Boop Beep").appendTo(h);
+        });
+
+        function setupSettings(e){
+            for(let i in $settingsapi._panels){
+                $settingsapi._panels[i].remove();
+            }
 
             for(let i in $settingsapi.ourSections){
                 let data = $settingsapi.ourSections[i];
@@ -212,6 +250,9 @@ exports = {
                     $settingsapi._callbacks[data.section]($settingsapi._panels[data.section]);
                 }
             }
-        });
+        }
+
+        $api.events.hook("USER_SETTINGS_MODAL_SET_SECTION",setupSettings);
+        $api.events.hook("USER_SETTINGS_MODAL_INIT",e=>setTimeout(_=>setupSettings(e),200));
     }
 }
