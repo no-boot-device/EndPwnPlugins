@@ -16,7 +16,7 @@ exports = {
         author: "Cynosphere",
         name: "Plugins Repo",
         description: "Download plugins.",
-        _version: 1
+        _version: 2
     },
 
     getInfo: async function(plugin){
@@ -239,6 +239,7 @@ exports = {
 
             em.createButton("Reload list")
             .modify(async x=>{
+                x.className = `${x.className} ${int.buttons.colorGreen}`;
                 x.onclick=async ()=>{
                     if(Date.now() < window._prTimeout){
                         em.createH5(`Ratelimited, try again in ${Math.floor(window._prTimeout-Date.now())}s.`)
@@ -259,6 +260,22 @@ exports = {
                         setupInfo(info.id,info.data)
                         .appendTo(list);
                     }
+                }
+            })
+            .appendTo(btns);
+
+            em.createButton("Check for updates")
+            .modify(async x=>{
+                x.className = `${x.className} ${int.buttons.colorYellow}`;
+                x.onclick=async ()=>{
+                    if(Date.now() < window._prTimeout){
+                        em.createH5(`Ratelimited, try again in ${Math.floor(window._prTimeout-Date.now())}s.`)
+                        .modify(y=>setTimeout(_=>{y.parentNode.removeChild(y)},2000))
+                        .appendTo(btns);
+                        return;
+                    }
+
+                    exports.updateCheck();
                 }
             })
             .appendTo(btns);
