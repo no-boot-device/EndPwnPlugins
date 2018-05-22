@@ -4,6 +4,10 @@ exports = {
         name: "Settings API",
         description: "Hijack the settings menu in any way you feel.",
         replacements: [
+            {
+                signature:/section:"logout",onClick:function\(\){(.)\.default\.push\(function\((.)\){return (.)\.createElement\((.)\.default,(.)\((.+),(.)\),(.)\((.)\.default,{size:(.)\.default\.Sizes\.MEDIUM,color:(.)\.default\.Colors\.PRIMARY},void 0,((.)\.default\.Messages\.USER_SETTINGS_CONFIRM_LOGOUT)\)\)}\)}/,
+                payload:'section:"logout",onClick:window.__fancyDialog=function(data=$6,txt=$12){$1.default.push(function($2){return $3.createElement($4.default,$5(data,$7),$8($9.default,{size:$10.default.Sizes.MEDIUM,color:$11.default.Colors.PRIMARY},void 0,txt))})}'
+            },
             {signature:'/function (.)\\(\\){return\\[{(.+)}]}/',payload:'window.$settingsapi={sections:[{$2}]};function $1(){return window.$settingsapi.sections;}'}
         ]
     },
@@ -18,6 +22,9 @@ exports = {
         var panels2 = $api.util.findFuncExports('errorMessage-', 'inputWrapper');
 
         let sections = window.$settingsapi.sections;
+        let dialog = window.__fancyDialog;
+
+        delete window.__fancyDialog;
 
         window.$settingsapi = {
             sections: sections,
@@ -44,6 +51,7 @@ exports = {
                 $settingsapi.ourSections.push({section:"HEADER",label:label});
                 $settingsapi.sections.splice(pos ? pos : $settingsapi.sections.length-4,0,{section:"HEADER",label:label});
             },
+            fancyDialog: dialog,
             //All of these allow us to use Discord's elements.
             elements: {
                 createVerticalPanel: function() {
