@@ -24,7 +24,7 @@ exports = {
             ourSections: [],
             _callbacks: {},
             _panels: {},
-            addSection: function(name,label,color=null,callback){
+            addSection: function(name,label,color=null,callback,pos){
                 let data = {};
 
                 data.section = name || `SAPI_${Math.floor(Math.random()*10000)}`;
@@ -33,16 +33,16 @@ exports = {
                 data.element = $api.util.findConstructor('FormSection', 'FormSection').FormSection;
 
                 $settingsapi.ourSections.push(data);
-                $settingsapi.sections.splice($settingsapi.sections.length-4,0,data);
+                $settingsapi.sections.splice(pos ? pos : $settingsapi.sections.length-4,0,data);
                 $settingsapi._callbacks[name] = callback;
             },
-            addDivider: function(){
+            addDivider: function(pos){
                 $settingsapi.ourSections.push({section:"DIVIDER"});
-                $settingsapi.sections.splice($settingsapi.sections.length-4,0,{section:"DIVIDER"});
+                $settingsapi.sections.splice(pos ? pos : $settingsapi.sections.length-4,0,{section:"DIVIDER"});
             },
-            addHeader: function(label){
+            addHeader: function(label, pos){
                 $settingsapi.ourSections.push({section:"HEADER",label:label});
-                $settingsapi.sections.splice($settingsapi.sections.length-4,0,{section:"HEADER",label:label});
+                $settingsapi.sections.splice(pos ? pos : $settingsapi.sections.length-4,0,{section:"HEADER",label:label});
             },
             exportSections: function(){
                 let out = "";
@@ -184,7 +184,7 @@ exports = {
         }
 
         //Example settings tab
-        $settingsapi.addDivider();
+      /*$settingsapi.addDivider();
         $settingsapi.addHeader("Element Testing");
         $settingsapi.addSection("TESTING","Element Test Page",null,function(pnl){
             let em = $settingsapi.elements;
@@ -204,7 +204,7 @@ exports = {
 
             em.createH2("Horizontal Panel!").appendTo(h);
             em.createButton("Boop Beep").appendTo(h);
-        });
+        });*/
 
         function setupSettings(e){
             for(let i in $settingsapi._panels){
