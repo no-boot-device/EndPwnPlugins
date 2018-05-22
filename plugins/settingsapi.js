@@ -24,7 +24,7 @@ exports = {
             ourSections: [],
             _callbacks: {},
             _panels: {},
-            addSection: function(name,label,color=null,callback,pos){
+            addSection: function(name,label,color=null,callback,pos=null){
                 let data = {};
 
                 data.section = name || `SAPI_${Math.floor(Math.random()*10000)}`;
@@ -43,15 +43,6 @@ exports = {
             addHeader: function(label, pos){
                 $settingsapi.ourSections.push({section:"HEADER",label:label});
                 $settingsapi.sections.splice(pos ? pos : $settingsapi.sections.length-4,0,{section:"HEADER",label:label});
-            },
-            exportSections: function(){
-                let out = "";
-
-                for(i in $settingsapi._sections){
-                    out = out + convertToText($settingsapi._sections[i]);
-                }
-
-                return out;
             },
             //All of these allow us to use Discord's elements.
             elements: {
