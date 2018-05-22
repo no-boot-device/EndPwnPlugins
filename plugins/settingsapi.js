@@ -16,7 +16,9 @@ exports = {
         var checkboxes = $api.util.findFuncExports('checkboxEnabled');
         var misc = $api.util.findFuncExports('statusRed-', 'inputDefault');
         var misc2 = $api.util.findFuncExports('multiInputField');
+        var misc3 = $api.util.findFuncExports('formText-','formText');
         var headers = $api.util.findFuncExports('h5-', 'h5');
+        var dividers = wc.findFunc('divider-')[0].exports;
 
         var panels = wc.findFunc('flexChild-')[0].exports;
         var panels2 = $api.util.findFuncExports('errorMessage-', 'inputWrapper');
@@ -43,13 +45,13 @@ exports = {
                 $settingsapi.sections.splice(pos ? pos : $settingsapi.sections.length-4,0,data);
                 $settingsapi._callbacks[name] = callback;
             },
-            addDivider: function(pos){
+            addDivider: function(){
                 $settingsapi.ourSections.push({section:"DIVIDER"});
-                $settingsapi.sections.splice(pos ? pos : $settingsapi.sections.length-4,0,{section:"DIVIDER"});
+                $settingsapi.sections.splice($settingsapi.sections.length-4,0,{section:"DIVIDER"});
             },
-            addHeader: function(label, pos){
+            addHeader: function(label){
                 $settingsapi.ourSections.push({section:"HEADER",label:label});
-                $settingsapi.sections.splice(pos ? pos : $settingsapi.sections.length-4,0,{section:"HEADER",label:label});
+                $settingsapi.sections.splice($settingsapi.sections.length-4,0,{section:"HEADER",label:label});
             },
             fancyDialog: dialog,
             //All of these allow us to use Discord's elements.
@@ -177,13 +179,15 @@ exports = {
                     checkboxes:checkboxes,
                     misc:misc,
                     misc2:misc2,
-                    headers:headers
+                    misc3:misc3,
+                    headers:headers,
+                    dividers:dividers
                 }
             }
         }
 
         //Example settings tab
-      /*$settingsapi.addDivider();
+        /*$settingsapi.addDivider();
         $settingsapi.addHeader("Element Testing");
         $settingsapi.addSection("TESTING","Element Test Page",null,function(pnl){
             let em = $settingsapi.elements;
