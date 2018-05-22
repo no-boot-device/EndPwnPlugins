@@ -227,6 +227,6 @@ exports = {
         }
 
         $api.events.hook("USER_SETTINGS_MODAL_SET_SECTION",setupSettings);
-        $api.events.hook("USER_SETTINGS_MODAL_INIT",e=>setTimeout(_=>setupSettings(e),200));
+        $api.events.hook("USER_SETTINGS_MODAL_INIT",e=>setTimeout(_=>setupSettings(e),1));
     }
 }
