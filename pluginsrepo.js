@@ -92,7 +92,7 @@ exports = {
                     internal.print(`Reloading!`);
                     electron.getCurrentWindow().loadURL(window.location.href);
                 }
-            },`The following plugins need to update: ${updated.join(", ")}. Would you like to restart for these plugins to be updated?`,);
+            },`The following plugins need to update: ${updated.join(", ")}. Would you like to restart for these plugins to be updated?`);
         }
     },
 
