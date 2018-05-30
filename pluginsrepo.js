@@ -16,7 +16,7 @@ exports = {
         author: "Cynosphere",
         name: "Plugins Repo",
         description: "Download plugins.",
-        _version: 2
+        _version: 3
     },
 
     getInfo: async function(plugin){

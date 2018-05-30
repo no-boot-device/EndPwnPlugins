@@ -1,19 +1,24 @@
 function setupCharCount() {
-    if (document.getElementById("charcounter")) return;
-    if (!document.querySelector("textarea[class*=\"textAreaEnabled-\"]")) return;
+    if (document.body.contains(charcount)) return;
+    if (!text || !document.body.contains(text)) {
+        text = document.querySelector('textarea[class^="textArea-"]');
+    }
+    if (!text) return;
 
-    let charcount = document.createElement("span");
-    charcount.id = "charcounter";
-    charcount.innerHTML = "0/2000";
-    charcount.style.right = "40px";
-    charcount.style.bottom = "4px";
-    charcount.style.opacity = "0.5";
-    charcount.style.position = "absolute";
-    charcount.style.display = "block";
-    charcount.style["font-size"] = "85%";
-
-    document.querySelector("div[class*=\"channelTextAreaEnabled-\"]").appendChild(charcount);
+    text.parentNode.appendChild(charcount);
 }
+
+let charcount = document.createElement("span");
+charcount.id = "charcounter";
+charcount.innerHTML = "0/2000";
+charcount.style.right = "40px";
+charcount.style.bottom = "4px";
+charcount.style.opacity = "0.5";
+charcount.style.position = "absolute";
+charcount.style.display = "block";
+charcount.style["font-size"] = "85%";
+
+let text = null;
 
 exports = {
     manifest: {
@@ -23,30 +28,30 @@ exports = {
     },
     start: function(){
         let charcount_mo = new MutationObserver(setupCharCount);
-        charcount_mo.observe(document.querySelector("div[class*=\"app-\"]"), {
+        charcount_mo.observe(document.querySelector(".app.flex-vertical"), {
             childList: true,
             subtree: true
         });
 
         document.addEventListener("keydown", ev => {
-            if (!document.getElementById("charcounter") || !document.querySelector("textarea[class*=\"textAreaEnabled-\"]")) return;
+            if (!text) return;
 
-            setTimeout(()=>{
-                let length = document.querySelector("textarea[class*=\"textAreaEnabled-\"]").value.length;
-                document.getElementById("charcounter").innerHTML = `${length}/2000`;
+            setImmediate(()=>{
+                let length = text.value.length;
+                charcount.innerHTML = `${length}/2000`;
 
                 if (length > 1999) {
-                    document.getElementById("charcounter").style.color = "#FF0000";
+                    charcount.style.color = "#FF0000";
                 } else if (length > 1899) {
-                    document.getElementById("charcounter").style.color = "#FF4500";
+                    charcount.style.color = "#FF4500";
                 } else if (length > 1499) {
-                    document.getElementById("charcounter").style.color = "#FFA500";
+                    charcount.style.color = "#FFA500";
                 } else if (length > 999) {
-                    document.getElementById("charcounter").style.color = "#F1C40F";
+                    charcount.style.color = "#F1C40F";
                 } else {
-                    document.getElementById("charcounter").style.color = "#FFFFFF";
+                    charcount.style.color = "#FFFFFF";
                 }
-            }, 50);
+            });
         });
     }
 }
