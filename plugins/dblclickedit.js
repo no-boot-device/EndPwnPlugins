@@ -6,8 +6,7 @@ exports.manifest = {
 exports.start = function(){
     document.addEventListener("dblclick", ev => {
         let target = ev.target;
-        console.log(target);
-        if(target && target.className && (target.className.includes("markup") || target.className.includes("hljs") || targe.className.includes("inline"))) {
+        if(target && target.className && (target.className.includes("markup") || target.className.includes("hljs") || target.className.includes("inline"))) {
             let msg = target;
             if(!ev.ctrlKey){
                 let opt = msg.parentNode.parentNode.className.includes("markup") ? msg.parentNode.parentNode.parentNode.querySelector(".btn-option") : msg.parentNode.querySelector(".btn-option");

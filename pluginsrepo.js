@@ -16,7 +16,7 @@ exports = {
         author: "Cynosphere",
         name: "Plugins Repo",
         description: "Download plugins.",
-        _version: 3
+        _version: 4
     },
 
     getInfo: async function(plugin){
@@ -66,7 +66,7 @@ exports = {
                 if(fs.existsSync(`${$api.data}/plugins/${id}.js`)){
                     var p = fs.readFileSync(`${$api.data}/plugins/${id}.js`).toString().replace(/\r\n/g,"\n").trim();
                     var np = await (await fetch(baseurl+id+'.js?_=' + Date.now())).text();
-                    np=np.trim();
+                    np=np.toString().replace(/\r\n/g,"\n").trim();
 
                     if(p !== np){
                         internal.print(`Update found for ${info.name} (${id}).`);
