@@ -1,25 +1,3 @@
-function setupCharCount() {
-    if (document.body.contains(charcount)) return;
-    if (!text || !document.body.contains(text)) {
-        text = document.querySelector('textarea[class^="textArea-"]');
-    }
-    if (!text) return;
-
-    text.parentNode.appendChild(charcount);
-}
-
-let charcount = document.createElement("span");
-charcount.id = "charcounter";
-charcount.innerHTML = "0/2000";
-charcount.style.right = "40px";
-charcount.style.bottom = "4px";
-charcount.style.opacity = "0.5";
-charcount.style.position = "absolute";
-charcount.style.display = "block";
-charcount.style["font-size"] = "85%";
-
-let text = null;
-
 exports = {
     manifest: {
         author: "Cynosphere",
@@ -27,6 +5,28 @@ exports = {
         description: "Counts characters in the chatbox."
     },
     start: function(){
+        function setupCharCount() {
+            if (document.body.contains(charcount)) return;
+            if (!text || !document.body.contains(text)) {
+                text = document.querySelector('textarea[class^="textArea-"]');
+            }
+            if (!text) return;
+
+            text.parentNode.appendChild(charcount);
+        }
+
+        let charcount = document.createElement("span");
+        charcount.id = "charcounter";
+        charcount.innerHTML = "0/2000";
+        charcount.style.right = "40px";
+        charcount.style.bottom = "4px";
+        charcount.style.opacity = "0.5";
+        charcount.style.position = "absolute";
+        charcount.style.display = "block";
+        charcount.style["font-size"] = "85%";
+
+        let text = null;
+
         let charcount_mo = new MutationObserver(setupCharCount);
         charcount_mo.observe(document.querySelector(".app.flex-vertical"), {
             childList: true,
