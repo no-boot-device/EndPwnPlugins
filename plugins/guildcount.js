@@ -1,5 +1,5 @@
 function formattedGuildCount(shortened) {
-    const guildCount = document.querySelectorAll(".guild > div[draggable=true]").length;
+    const guildCount = document.querySelectorAll("[class^='guild'] > div[draggable=true]").length;
     return `${guildCount} Guilds`;
 }
 
@@ -9,7 +9,7 @@ function setupServerCount() {
     let gc = document.createElement("div");
     gc.className = "server-count";
 
-    let glist = document.querySelector(".friends-online");
+    let glist = document.querySelector("[class^=friendsOnline]");
     if (!glist) return;
 
     glist.parentNode.insertBefore(gc, glist.nextSibling);
